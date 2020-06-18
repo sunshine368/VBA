@@ -1,0 +1,123 @@
+Option Explicit
+
+Sub TestDoWhile()
+Sheets("loops").Select
+Cells.ClearContents
+
+Do While Range("a1").Value < 2
+    Range("a1").Value = Range("a1").Value + 1
+Loop
+
+End Sub
+
+Sub TestDoWhile2()
+Sheets("loops").Select
+
+Do
+    Range("a1").Value = Range("a1").Value + 1
+Loop While Range("a1").Value < 124
+
+End Sub
+
+Sub TestDoUntil()
+Sheets("loops").Select
+Cells.ClearContents
+
+Do Until Range("a1").Value < 124
+    Range("a1").Value = Range("a1").Value + 1
+Loop
+
+End Sub
+
+Sub DeleteBlankRows()
+Dim lastrow As Long, xrow As Long
+xrow = 1
+
+lastrow = Range("A1000000").End(xlUp).Row
+
+Do Until xrow = lastrow
+    If Cells(xrow, 1).Value = "" Then
+        Cells(xrow, 1).Select
+        Selection.EntireRow.Delete
+        xrow = xrow - 1
+        lastrow = lastrow - 1
+    End If
+xrow = xrow + 1
+Loop
+
+End Sub
+
+Sub DoUntilBlankCell()
+Dim xrow As Long, xcol As Long, lastrow As Long
+xrow = 1
+xcol = 1
+
+Do Until Cells(xrow, xcol).Value = ""
+    Cells(xrow, xcol).Select
+    xrow = xrow + 1
+Loop
+lastrow = xrow - 1
+
+End Sub
+
+Sub TestForNext()
+Dim i As Long
+Sheets("loops").Select
+Cells.ClearContents
+
+For i = 1 To 10
+    Cells(i, 1).Value = i
+Next i
+
+For i = 1 To 20 Step 2
+    Cells(i, 2).Value = i
+Next i
+
+End Sub
+
+Sub ForNextLoopAddSheets()
+Dim numberOfSheets As Integer, counter As Integer
+
+numberOfSheets = Application.InputBox("How many worksheets do you want to add?", "Add worksheets", , , , , , 1)
+
+If numberOfSheets = False Then
+    Exit Sub 'End if user clicked CANCEL
+Else
+    'Add worksheets
+    For counter = 1 To numberOfSheets
+        Worksheets.Add 'add a worksheet
+    Next counter
+End If
+
+End Sub
+
+Sub ForEachLoopWorksheets()
+Dim ws As Worksheet
+
+For Each ws In Worksheets
+    ws.Select
+    MsgBox (ws.Name)
+Next ws
+
+End Sub
+
+Sub ForEachLoopRanges()
+'Highlight the selected range in yellow
+Dim rng As Range
+Dim rcell As Range
+Set rng = Selection
+
+For Each rcell In rng
+    rcell.Select
+    If rcell.Value > 200 Then
+        With Selection.Interior
+            .Color = 65535
+        End With
+    Else
+        With Selection.Interior
+            .Pattern = xlNone
+        End With
+    End If
+Next rcell
+    
+End Sub
