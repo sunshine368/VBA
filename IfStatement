@@ -1,0 +1,29 @@
+'Relational operator: =, <>, >, >=, <, <=
+'logical operators: and, or, not
+
+Function getTaxRateElseIf(salary As Double, HasKids As String) As Double
+    If salary > 5000 And salary < 40000 Then
+        If HasKids = "yes" Then
+            getTaxRateElseIf = 0.15
+        Else
+            getTaxRateElseIf = 0.25
+        End If
+        
+    ElseIf salary >= 40000 And salary < 90000 Then
+        If HasKids = "yes" Then
+            getTaxRateElseIf = 0.28
+        Else
+            getTaxRateElseIf = 0.35
+        End If
+
+    ElseIf salary >= 90000 Then
+        If HasKids = "yes" Then
+            getTaxRateElseIf = 0.42
+        Else
+            getTaxRateElseIf = 0.45
+        End If
+        
+    Else
+        getTaxRateElseIf = 0
+    End If
+End Function
