@@ -1,0 +1,26 @@
+Option Explicit
+Sub msgboxExamples()
+Dim x As Integer
+x = 9
+MsgBox ("x = " & x)
+
+End Sub
+
+Sub msgboxExamples2()
+Dim x As Integer
+x = 9
+
+'2: display abort, retry and ignore buttons
+'16: display critical message icon
+'vbDefaultButton1: first button is default
+Call MsgBox("hi" & " how are you? x = " & x, vbAbortRetryIgnore + vbQuestion + vbDefaultButton1 + vbSystemModal, "This is the title")
+
+If response = 3 Then
+    MsgBox ("You clicked abort")
+ElseIf response = 4 Then
+    MsgBox ("You clicked retry")
+Else
+    MsgBox ("You clicked ignore")
+End If
+
+End Sub
