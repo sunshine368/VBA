@@ -1,0 +1,50 @@
+Option Explicit
+Function getTaxRateSelectCase(salary As Double) As Double
+    Select Case salary
+        Case Is > 5000
+            getTaxRateSelectCase = 0.25
+        Case Else
+            getTaxRateSelectCase = 0
+    End Select
+End Function
+
+
+Function getTaxRateSelectCaseTo(salary As Double) As Double
+    Select Case salary
+        Case 5000 To 40000
+            getTaxRateSelectCaseTo = 0.25
+        Case Else
+            getTaxRateSelectCaseTo = 0.1
+    End Select
+End Function
+
+Function getTaxRateSelectCaseNested(salary As Double, HasKids As String) As Double
+    Select Case salary
+        Case 5000 To 40000
+            Select Case HasKids
+                Case "yes"
+                    getTaxRateSelectCaseNested = 0.15
+                Case "no"
+                    getTaxRateSelectCaseNested = 0.25
+                End Select
+                
+        Case 40001 To 90000
+            Select Case HasKids
+                Case "yes"
+                    getTaxRateSelectCaseNested = 0.28
+                Case "no"
+                    getTaxRateSelectCaseNested = 0.35
+                End Select
+                
+        Case Is > 90000
+            Select Case HasKids
+                Case "yes"
+                    getTaxRateSelectCaseNested = 0.42
+                Case "no"
+                    getTaxRateSelectCaseNested = 0.45
+                End Select
+                
+        Case Else
+            getTaxRateSelectCaseNested = 0
+    End Select
+End Function
