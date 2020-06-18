@@ -1,0 +1,49 @@
+Option Explicit 'All variables must be declared using dim/const
+Sub Variables()
+
+Dim xint As Integer, xdate As Date, xstr As String
+
+Const num As Integer = 9
+
+Dim var_byte As Byte '0 to 255
+var_byte = 255
+
+Dim var_boolean As Boolean
+var_boolean = False
+
+Dim var_integer As Integer '-32,768 to 32,767
+var_integer = 5.7
+'MsgBox (var_integer)
+
+Dim var_currency As Currency '-922,337,203,685,477.5808 to
+var_currency = 4565.88
+
+Dim var_long As Long '-2,147,483,648 to 2,147,483,647
+var_long = 2147483647
+
+Dim var_single As Single '-3.402823*E308 to -1.401298*E-45
+var_single = -2.533
+
+Dim var_double As Double '-1.79769313486232*E306 to -4.9406564584124*E324
+var_double = -5.00001
+
+Dim var_date As Date '1/1/0100 to 12/31/9999, 8 byte of memory
+var_date = "12/31/9999"
+'MsgBox (var_date)
+
+Dim var_string As String '0 to 2 billion characters, 10 byte of memory
+var_string = "My name is Joe"
+
+Dim var_variant As Variant 'up to data type Double or 0 to billion characters, 22 byte
+var_variant = "23423423"
+
+'''declare object variables
+Dim ws As Worksheet
+Set ws = ActiveSheet
+MsgBox (ws.Name)
+
+Dim wb As Workbook
+Set wb = ActiveWorkbook
+MsgBox (wb.Name)
+
+End Sub
