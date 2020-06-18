@@ -1,0 +1,129 @@
+Sub StaticArray() 'static because the size is fixed
+
+Dim names(2) As String
+names(1) = "Hi"
+MsgBox (names(1))
+
+End Sub
+
+Sub StaticArrayPopulateAndLoop()
+Dim names(2) As String
+Dim i As Integer
+
+names(0) = "Bob"
+names(1) = "Mary"
+names(2) = "George"
+
+MsgBox ("Ubound(names, 1) = " & UBound(names, 1))
+
+'loop through the array
+For i = 0 To UBound(names, 1)
+    Cells(i + 1, 1).Value = names(i)
+Next i
+
+End Sub
+
+Sub populate1DArrayFromWorksheet()
+Dim months(11) As String
+Dim i As Integer
+Dim xrow As Long
+
+i = 0 ' variable for the index of the array
+xrow = 2 'variable for the row number on worksheet
+
+Do Until Cells(xrow, 1).Value = ""
+    months(i) = Cells(xrow, 1).Value 'this populates the array
+    i = i + 1
+    xrow = xrow + 1
+Loop
+
+For i = 0 To UBound(months, 1)
+    If months(i) = MonthName(Month(Date)) Then
+        MsgBox ("The current month is " & MonthName(Month(Date)))
+    End If
+Next i
+
+End Sub
+
+Function ConvertToUSD(foreignCurrencySymbol As String, amount As Double) As Double
+Dim ExchangeRates(3, 2) As Variant, i As Integer
+
+ExchangeRates(0, 0) = "Canada"
+ExchangeRates(0, 1) = "CAD"
+ExchangeRates(0, 2) = 1.05
+
+ExchangeRates(1, 0) = "Euro Zone"
+ExchangeRates(1, 1) = "EUR"
+ExchangeRates(1, 2) = 1.2
+
+ExchangeRates(2, 0) = "Japan"
+ExchangeRates(2, 1) = "JPY"
+ExchangeRates(2, 2) = 0.012
+
+ExchangeRates(3, 0) = "Mexico"
+ExchangeRates(3, 1) = "MXN"
+ExchangeRates(3, 2) = 0.07
+
+For i = 0 To UBound(ExchangeRates, 1)
+    If foreignCurrencySymbol = ExchangeRates(i, 1) Then
+        ConvertToUSD = amount * ExchangeRates(i, 2)
+    End If
+Next i
+
+End Function
+
+Sub Populate2DArrayFromExcel()
+Dim ExchangeRates(3, 2) As Variant, xrow As Integer, xcol As Integer, _
+rowIndex As Long, colIndex As Long, i As Long, j As Long
+rowIndex = 0
+colIndex = 0
+xrow = 2
+xcol = 3
+
+'outer loop down the rows
+Do Until Cells(xrow, xcol).Value = ""
+    Do Until Cells(xrow, xcol).Value = ""
+        ExchangeRates(rowIndex, colIndex) = Cells(xrow, xcol)
+        colIndex = colIndex + 1
+        xcol = xcol + 1
+    Loop
+    rowIndex = rowIndex + 1
+    xrow = xrow + 1
+    colIndex = 0 'reset after finishing one row
+    xcol = 3 'reset after finishing one row
+Loop
+
+'print the array
+xrow = 8
+xcol = 3
+For i = 0 To UBound(ExchangeRates, 1)
+    For j = 0 To UBound(ExchangeRates, 2)
+        Cells(xrow, xcol).Value = ExchangeRates(i, j)
+        xcol = xcol + 1
+    Next j
+    xrow = xrow + 1
+    xcol = 3
+Next i
+
+End Sub
+
+Sub OneDDynamicArray()
+Dim City() As String
+Dim xrow As Long, i As Long
+i = 0
+xrow = 2
+
+ReDim City(0) 'resize array to hold 1 string
+
+Do Until Cells(xrow, 8).Value = ""
+    If Cells(xrow, 8).Value = "CA" Then
+        City(i) = Cells(xrow, 7).Value 'put city in array if in CA
+        i = i + 1
+        ReDim Preserve City(i) 'resize city array to new upper bound using ReDim; keep the old data using Preserve
+    End If
+    xrow = xrow + 1
+Loop
+
+ReDim Preserve City(i - 1) 'resize the city array to eliminate the unused last element
+End Sub
+
