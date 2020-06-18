@@ -1,0 +1,13 @@
+Option Explicit
+
+Private teamName As String
+
+Public Property Get Name() As String
+Name = teamName
+End Property
+
+Public Property Let Name(param_name As String)
+teamName = param_name
+End Property
+
+
