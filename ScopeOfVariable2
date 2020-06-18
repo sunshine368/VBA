@@ -1,0 +1,8 @@
+Sub GlobalVariable()
+
+MsgBox ("x in the second module: " & x)
+MsgBox ("y in the second module: " & y)
+MsgBox ("z in the second module: " & z)
+MsgBox ("q in the second module: " & q)
+
+End Sub
