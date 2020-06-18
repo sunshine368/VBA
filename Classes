@@ -1,0 +1,15 @@
+Sub TestClasses()
+
+Dim bbteam As BasketballTeam
+Set bbteam = New BasketballTeam 'this instantiates the object
+
+bbteam.Name = "Lakers" 'use Let
+MsgBox (bbteam.Name) 'use Get
+
+MsgBox (Application.Name)
+
+End Sub
+
+Sub TestObjectBrowser()
+MsgBox (Application.Sheets.Count)
+End Sub
