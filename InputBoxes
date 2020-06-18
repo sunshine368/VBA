@@ -1,0 +1,37 @@
+Option Explicit
+Sub FindMaxInRange()
+
+'Codes for the [Type] parameter of the InputBox function
+'0: formula
+'1: number
+'2: string
+'4: boolean
+'8: cell reference or range object
+'16: error value
+'64: array
+'Dim numberOfSheets As Integer
+'numberOfSheets = Application.InputBox("How many worksheets do you want to create?", "Add worksheets", 1, , , , , 1)
+
+Dim numberRange As Range
+Dim c As Range, maxValue As Double, maxAddress As String
+
+On Error GoTo canceled 'if the user selects cancel go to the cancel label
+Set numberRange = Application.InputBox("Enter a range of cells to find max:", "Find max", , , , , , 8)
+
+maxValue = numberRange.Cells(1, 1).Value 'initial max value is whatever is in the first cell
+maxAddress = numberRange.Cells(1, 1).Address 'initial address is the address of the first cell
+
+'loop over the cells in the range the user provided
+For Each c In numberRange.Cells
+    If c.Value > maxValue Then
+        maxValue = c.Value 'new max is found
+        maxAddress = c.Address ' address of the new max
+    End If
+Next c
+
+'display max value and its address
+MsgBox ("The max value in the range is " & maxValue & " at " & maxAddress)
+
+canceled:
+
+End Sub
