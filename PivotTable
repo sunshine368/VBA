@@ -1,0 +1,60 @@
+Sub MakePivotTable()
+Dim pt As PivotTable
+Dim cachePT As PivotTable
+Dim pf As PivotFields
+Dim pi As PivotItem
+
+
+Sheets("Pivot").Select
+ActiveSheet.PivotTables("MyPT").TableRange2.Clear 'delete the old pivot table
+
+'set source of data for pivot table
+Set cachePT = ActiveWorkbook.PivotCaches.Create(xlDatabase, Range("Data"))
+
+'create pivot table
+Set pt = ActiveSheet.PivotTables.Add(cachePT, Range("K1"), "MyPT")
+
+With pt
+    'set orientation of the fields
+    .PivotFields("Date").Orientation = xlRowField
+    .PivotFields("Product").Orientation = xlRowField
+    .PivotFields("Name").Orientation = xlPageField
+    .PivotFields("Price").Orientation = xlDataField
+    
+    'set to classic view
+    .RowAxisLayout xlTabularRow
+    
+    'set format for price
+    .DataBodyRange.NumberFormat = "#,##0.00"
+    
+    'add a calculated field for commission
+    .CalculatedFields.Add "Commission", "=Price*.1"
+    .PivotFields("Commission").Orientation = xlDataField
+End With
+
+'turn on only certain items
+Set pf = pt.PivotFields("Name") 'set the pivot field to change to the name field
+With pt
+    'loop over all the names in the name field
+    For Each pi In pf.PivotItems
+        If pi.Name = "Bob" Then
+            pi.Visible = True
+        Else
+            pi.Visible = False
+        End If
+    Next pi
+End With
+
+Set pf = pt.PivotFields("Product") 'set the pivot field to change to the product field
+With pt
+    'loop over all the products in the name field
+    For Each pi In pf.PivotItems
+        If pi.Name = "Basketball" Then
+            pi.Visible = True
+        Else
+            pi.Visible = False
+        End If
+    Next pi
+End With
+
+End Sub
