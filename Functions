@@ -1,0 +1,21 @@
+Option Explicit
+Sub TestFunctions()
+
+Dim x As Integer
+x = Return1()
+MsgBox (x)
+
+Dim y As Double
+y = ConvertToCelsius(100)
+MsgBox (y)
+
+End Sub
+
+'user defined functions which can be used in worksheet and VBA codes
+Function Return1() As Integer 'what needs to be returned is assigned to a variable with the same name as the function
+Return1 = 1
+End Function
+
+Function ConvertToCelsius(TempFahrenheit As Double) As Double
+ConvertToCelsius = (TempFahrenheit - 32) * 5 / 9
+End Function
