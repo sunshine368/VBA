@@ -1,0 +1,32 @@
+Sub CalculatePV1()
+
+For i = 0 To 2
+    Cells(2, 17).Value = Cells(i + 4, 12).Value
+    Calculate
+    Cells(i + 4, 14).Value = Cells(2, 20).Value
+Next i
+
+Cells(i + 4, 14).Value = Application.WorksheetFunction.Average(Range("N4:N6"))
+
+End Sub
+
+Sub CalculatePV2()
+Dim lastrow As Integer, startrow As Integer
+startrow = 4 'the row number where the first policy is
+lastrow = startrow 'the row number where the last policy is
+
+'find the row number where the last policy is
+Do Until Cells(lastrow, 12) = ""
+    lastrow = lastrow + 1
+Loop
+lastrow = lastrow - 1
+
+For i = 0 To (lastrow - startrow)
+    Range("Q2").Value = Cells(i + startrow, 12).Value
+    Calculate
+    Cells(i + startrow, 14).Value = Cells(2, 20).Value
+Next i
+
+Cells(lastrow + 1, 14).Value = Application.WorksheetFunction.Average(Range("N" & startrow & ":N" & lastrow))
+
+End Sub
