@@ -1,0 +1,35 @@
+Public q As Integer 'visible across module
+Dim z As Integer 'visible within the same module
+
+Sub Sub1()
+'visible in the current subroutine
+Dim x As Integer
+'visible in the current subroutine
+'static: the variable is not erased from the memory after the sub ends
+Static y As Integer
+
+x = x + 100
+MsgBox ("x in sub 1: " & x)
+
+y = y + 100
+MsgBox ("y in sub 1: " & y)
+
+z = z + 100
+MsgBox ("z n sub 1: " & z)
+
+q = q + 100
+MsgBox ("q n sub 1: " & q)
+
+Call Sub2
+Call GlobalVariable
+
+End Sub
+
+Sub Sub2()
+
+MsgBox ("x in sub 2: " & x)
+MsgBox ("y in sub 2: " & y)
+MsgBox ("z n sub 2: " & z)
+MsgBox ("q n sub 2: " & q)
+
+End Sub
